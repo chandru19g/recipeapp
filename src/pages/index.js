@@ -1,22 +1,63 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useEffect, useState } from "react"
+// import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import Receipe from "./Receipe"
+import "../components/layout.css"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+const IndexPage = () => {
+
+  const APP_ID = "99545b6b"
+  const APP_KEY ="88aa4c09c45fe6bb9f2c6fc22331d877"
+
+  const [receipes, setReceipes] = useState([])
+  const [search, setSearch] = useState("")
+  const [query, setQuery] = useState("chicken")
+
+  useEffect(() => {
+    getReceipes()
+  },[query])
+
+  const getReceipes = async () => {
+    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`)
+    const data = await response.json()
+    setReceipes(data.hits)
+    // console.log(data.hits)
+  }
+
+  const updateSearch = e => {
+    setSearch(e.target.value)
+  }
+
+  const getSearch = e => {
+    e.preventDefault()
+    setQuery(search)
+    setSearch('')
+  }
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <div className="index">
+        <form onSubmit={getSearch} className="search-form">
+          <input className="search-bar" type="text" value={search} onChange={updateSearch} />
+          <input type="button" value="search" className="search-button"/>
+        </form>
+        <div className="recipe">
+          {receipes.map(receipe => (
+            <Receipe 
+              key={receipe.recipe.label}
+              title={receipe.recipe.label} 
+              calories={receipe.recipe.calories} 
+              image={receipe.recipe.image} 
+              ingredients={receipe.recipe.ingredients}
+            />
+          ))}
+        </div>
+      </div>
+    </Layout>
+  )
+}
 
 export default IndexPage
