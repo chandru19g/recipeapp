@@ -42,7 +42,12 @@ const IndexPage = () => {
       <div className="index">
         <form onSubmit={getSearch} className="search-form">
           <input className="search-bar" type="text" value={search} onChange={updateSearch} />
-          <input type="button" value="search" className="search-button"/>
+          <input
+							type='button'
+							value='search'
+							onClick={(e) => getSearch(e)}
+							className='search-button'
+						/>
         </form>
         <div className="recipe">
           {receipes.map(receipe => (

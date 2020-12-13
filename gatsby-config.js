@@ -3,6 +3,7 @@ module.exports = {
     title: `Receipe App`,
     description: `This is an receipe app builded it for learning API`,
     author: `@chandrujs`,
+    icon: `src/images/logo.png`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
