@@ -50,7 +50,7 @@ const IndexPage = () => {
 						/>
         </form>
         <div className="recipe">
-          {receipes.map(receipe => (
+          { receipes.map(receipe => (
             <Receipe 
               key={receipe.recipe.label}
               title={receipe.recipe.label} 
@@ -58,8 +58,10 @@ const IndexPage = () => {
               image={receipe.recipe.image} 
               ingredients={receipe.recipe.ingredients}
             />
+          // ),var console: console.log(typeof(ingredients))         
           ))}
         </div>
+        
       </div>
     </Layout>
   )
