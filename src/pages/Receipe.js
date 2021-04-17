@@ -10,6 +10,10 @@ const Receipe = ({ title, calories, image, ingredients }) => {
         {ingredients.map(ingredient => (
           <li>{ingredient.text}</li>
         ))}
+        {/* {ingredients
+        (ingredient => (
+          <li>{ingredient.text}</li>
+        ))} */}
       </ol>
       <img className={Style.image} src={image} alt="" />
     </div>
